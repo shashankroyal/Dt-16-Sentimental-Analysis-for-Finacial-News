@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial News Sentiment Analysis</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 2rem;
+        }
+
+        .hero {
+            margin-top: 30px;
+        }
+
+        .hero h2 {
+            font-size: 1.8rem;
+        }
+
+        .hero p {
+            font-size: 1rem;
+            margin-bottom: 15px;
+        }
+
+        .search-box {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .search-box input {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 300px;
+        }
+
+        .search-box button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background: #ffcc00;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .results {
+            margin-top: 30px;
+        }
+
+        .sentiment-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 10px;
+        }
+
+        footer {
+            margin-top: 20px;
+            opacity: 0.8;
+        }
+    </style>
+    <script>
+        function analyzeSentiment() {
+            const input = document.getElementById("news-input").value;
+            const resultCard = document.getElementById("sentiment-card");
+            const sentimentText = document.querySelector(".sentiment-text");
+
+            if (input.trim() === "") {
+                sentimentText.textContent = "Please enter a news headline.";
+                return;
+            }
+
+            const sentiments = ["Positive", "Neutral", "Negative"];
+            const randomSentiment = sentiments[Math.floor(Math.random() * sentiments.length)];
+
+            sentimentText.textContent = `Sentiment: ${randomSentiment}`;
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Financial Sentiment Analyzer</h1>
+    </header>
+    
+    <section class="hero">
+        <h2>Analyze Financial News Sentiments Instantly</h2>
+        <p>Get real-time insights on market trends through sentiment analysis.</p>
+        <div class="search-box">
+            <input type="text" id="news-input" placeholder="Enter financial news headline...">
+            <button onclick="analyzeSentiment()">Analyze</button>
+        </div>
+    </section>
+    
+    <section class="results" id="results">
+        <h3>Sentiment Results</h3>
+        <div class="sentiment-card" id="sentiment-card">
+            <p class="sentiment-text">Enter a headline to see the analysis...</p>
+        </div>
+    </section>
+    
+    <footer>
+        <p>&copy; 2025 Financial Sentiment Analyzer</p>
+    </footer>
+</body>
+</html>
