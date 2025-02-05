@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial News - Sentiment Analysis</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+        #search {
+            width: 80%;
+            padding: 10px;
+            margin: 10px auto;
+            display: block;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        main {
+            padding: 20px;
+        }
+        #news-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .news-item {
+            background-color: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+        .news-item:hover {
+            transform: scale(1.02);
+        }
+        .positive { border-left: 5px solid green; }
+        .negative { border-left: 5px solid red; }
+        .neutral { border-left: 5px solid gray; }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Financial News Sentiment</h1>
+        <input type="text" id="search" placeholder="Search news...">
+    </header>
+    <main>
+        <div id="news-container">
+            <!-- News articles will be dynamically inserted here -->
+        </div>
+    </main>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const newsContainer = document.getElementById("news-container");
+            const searchInput = document.getElementById("search");
+
+            const newsData = [
+                { title: "Stock Market Rallies", sentiment: "positive" },
+                { title: "Tech Layoffs Continue", sentiment: "negative" },
+                { title: "Economic Growth Stable", sentiment: "neutral" }
+            ];
+
+            function renderNews(filter = "") {
+                newsContainer.innerHTML = "";
+                newsData.filter(news => news.title.toLowerCase().includes(filter.toLowerCase()))
+                    .forEach(news => {
+                        const newsItem = document.createElement("div");
+                        newsItem.className = `news-item ${news.sentiment}`;
+                        newsItem.textContent = news.title;
+                        newsContainer.appendChild(newsItem);
+                    });
+            }
+
+            searchInput.addEventListener("input", (e) => renderNews(e.target.value));
+            renderNews();
+        });
+    </script>
+</body>
+</html>
