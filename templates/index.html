@@ -43,6 +43,19 @@
             cursor: pointer;
         }
 
+        /* Analyze Button */
+        .analyze-button {
+            display: block;
+            margin: 20px auto;
+            padding: 10px 20px;
+            font-size: 18px;
+            background-color: #497D74;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
         /* Stock Ticker */
         .stock-ticker {
             background: rgb(255, 237, 164);
@@ -65,60 +78,6 @@
             padding: 10px;
             border-radius: 10px;
         }
-
-        /* News Section */
-        .news {
-            padding: 20px;
-            color: #1f3834;
-            font-family: Georgia, 'Times New Roman', Times, serif;
-        }
-
-        .news-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .news-card {
-            background: #497D74;
-            padding: 15px;
-            border-radius: 10px;
-            width: 30%;
-            box-shadow: 0px 2px 10px rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease-in-out;
-        }
-
-        .news-card:hover {
-            transform: scale(1.05);
-        }
-
-        /* AI Insights */
-        .ai-insights {
-            text-align: center;
-            padding: 20px;
-            background: #71BBB2;
-            margin-top: 20px;
-            font-family: Georgia, 'Times New Roman', Times, serif;
-        }
-
-        .ai-insights h2, p {
-            color: black;
-        }
-
-        /* Footer */
-        .footer {
-            width: 100%;
-            text-align: center;
-            padding: 30px 0;
-            color: black;
-        }
-
-        .icons .fab {
-            color: #f44336;
-            margin: 0 13px;
-            cursor: pointer;
-            padding: 18px 0;
-        }
     </style>
 </head>
 <body>
@@ -136,28 +95,7 @@
         <canvas id="marketChart"></canvas>
     </section>
 
-    <section class="news">
-        <h2>Latest Financial News</h2>
-        <div id="newsContainer" class="news-container"></div>
-    </section>
-
-    <section class="ai-insights">
-        <h2>AI-Powered Insights</h2>
-        <p id="aiInsight">Analyzing market data...</p>
-    </section>
-
-    <section class="footer">
-        <h3>About us</h3>
-        <p>"Financial Insights Hub is your go-to platform for real-time financial analytics, AI-driven market insights, and sentiment analysis. 
-            We empower investors, traders, and financial analysts with cutting-edge technology to make informed decisions. Stay ahead of 
-            market trends with AI-powered predictions, interactive charts, and real-time news updates."
-        </p>
-        <div class="icons">
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="https://www.instagram.com/___s__p__reddy__07/"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
-        </div>
-    </section>
+    <button id="analyzeButton" class="analyze-button">Analyze</button>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -167,41 +105,9 @@
                 document.body.classList.toggle("light-mode");
             });
     
-            // Fake stock sentiment data
-            const stockSentiment = [
-                "AAPL: +2.5% 🚀 | TSLA: -1.3% 🔻 | AMZN: +1.8% 📈 | BTC: +3.2% 🚀",
-                "GOOGL: +1.1% 📈 | META: -0.8% 🔻 | ETH: +4.1% 🚀 | NVDA: +2.3% 📈"
-            ];
-            let ticker = document.getElementById("stockTicker");
-            let index = 0;
-            setInterval(() => {
-                ticker.innerText = stockSentiment[index];
-                index = (index + 1) % stockSentiment.length;
-            }, 5000);
-    
-            // Sample News
-            const newsContainer = document.getElementById("newsContainer");
-            const sampleNews = [
-                { title: "Market hits all-time high", link: "#" },
-                { title: "Tech stocks see a major rally", link: "#" },
-                { title: "Crypto market surges 10% in a week", link: "#" }
-            ];
-            sampleNews.forEach(news => {
-                let newsCard = document.createElement("div");
-                newsCard.classList.add("news-card");
-                newsCard.innerHTML = `<a href="${news.link}" target="_blank">${news.title}</a>`;
-                newsContainer.appendChild(newsCard);
-            });
-    
-            // Chart.js Market Trends Visualization
-            const ctx = document.getElementById("marketChart").getContext("2d");
-            new Chart(ctx, {
-                type: "line",
-                data: {
-                    labels: ["Jan", "Feb", "Mar", "Apr", "May"],
-                    datasets: [{ label: "Stock Market Index", data: [3200, 3400, 3300, 3500, 3600], borderColor: "#ffcc00", borderWidth: 2 }]
-                },
-                options: { responsive: true }
+            // Analyze Button Click Event
+            document.getElementById("analyzeButton").addEventListener("click", function () {
+                window.location.href = "/predict";
             });
         });
     </script>
