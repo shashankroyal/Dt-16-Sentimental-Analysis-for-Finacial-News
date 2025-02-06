@@ -3,88 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial News - Sentiment Analysis</title>
+    <title>Financial Insights Hub</title>
     <link rel="stylesheet" href="styles.css">
-    <script defer src="script.js"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-        }
-        header {
-            background-color: #333;
-            color: white;
-            text-align: center;
-            padding: 15px;
-        }
-        #search {
-            width: 80%;
-            padding: 10px;
-            margin: 10px auto;
-            display: block;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-        main {
-            padding: 20px;
-        }
-        #news-container {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .news-item {
-            background-color: white;
-            padding: 15px;
-            border-radius: 5px;
-            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-        .news-item:hover {
-            transform: scale(1.02);
-        }
-        .positive { border-left: 5px solid green; }
-        .negative { border-left: 5px solid red; }
-        .neutral { border-left: 5px solid gray; }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script defer src="script.js"></script>        
 </head>
 <body>
     <header>
-        <h1>Financial News Sentiment</h1>
-        <input type="text" id="search" placeholder="Search news...">
+        <h1>Financial Insights Hub</h1>
+        <button id="darkModeToggle"><i class="fas fa-moon"></i></button>
     </header>
-    <main>
-        <div id="news-container">
-            <!-- News articles will be dynamically inserted here -->
+    <!-- Live Stock Sentiment Ticker -->
+    <div class="stock-ticker">
+        <marquee id="stockTicker">Loading latest stock sentiment...</marquee>
+    </div>
+
+    <!-- Market Overview Section -->
+    <section class="market-overview">
+        <h2>Market Trends</h2>
+        <canvas id="marketChart"></canvas>
+    </section>
+
+    <!-- Financial News Section -->
+    <section class="news">
+        <h2>Latest Financial News</h2>
+        <div id="newsContainer" class="news-container"></div>
+    </section>
+
+    <!-- AI Insights Section -->
+    <section class="ai-insights">
+        <h2>AI-Powered Insights</h2>
+        <p id="aiInsight">Analyzing market data...</p>
+    </section>
+
+    <section class="footer">
+        <h3>About us</h3>
+        <p>"Financial Insights Hub is your go-to platform for real-time financial analytics, AI-driven market insights, and sentiment analysis. 
+            <br>We empower investors, traders, and financial analysts with cutting-edge technology to make informed decisions.
+             Stay ahead of <br>market trends with AI-powered predictions, interactive charts, and real-time news updates"
+        </p>
+        <div class="icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="https://www.instagram.com/___s__p__reddy__07/"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+            
+
         </div>
-    </main>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const newsContainer = document.getElementById("news-container");
-            const searchInput = document.getElementById("search");
-
-            const newsData = [
-                { title: "Stock Market Rallies", sentiment: "positive" },
-                { title: "Tech Layoffs Continue", sentiment: "negative" },
-                { title: "Economic Growth Stable", sentiment: "neutral" }
-            ];
-
-            function renderNews(filter = "") {
-                newsContainer.innerHTML = "";
-                newsData.filter(news => news.title.toLowerCase().includes(filter.toLowerCase()))
-                    .forEach(news => {
-                        const newsItem = document.createElement("div");
-                        newsItem.className = `news-item ${news.sentiment}`;
-                        newsItem.textContent = news.title;
-                        newsContainer.appendChild(newsItem);
-                    });
-            }
-
-            searchInput.addEventListener("input", (e) => renderNews(e.target.value));
-            renderNews();
-        });
-    </script>
 </body>
 </html>

@@ -1,0 +1,122 @@
+/* General Styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #EFE9D5;
+    color: #ffffff;
+    transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+/* Header */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    background-color: #27445D;
+    box-shadow: 0px 2px 10px rgba(255, 255, 255, 0.1);
+}
+
+h1 {
+    margin: auto;
+    font-size: 24px;
+    text-align: center;
+    font-family:Georgia, 'Times New Roman', Times, serif
+}
+
+/* Dark Mode Toggle */
+#darkModeToggle {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Stock Ticker */
+.stock-ticker {
+    background:rgb(255, 237, 164);
+    color: #000;
+    padding: 10px;
+    font-weight: bold;
+}
+
+/* Market Overview */
+.market-overview {
+    text-align: center;
+    padding: 20px;
+    color:#1a2d3e;
+    font-family:Georgia, 'Times New Roman', Times, serif
+}
+
+canvas {
+    max-width: 90%;
+    background: #fff;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+/* News Section */
+.news {
+    padding: 20px;
+    color:#1f3834;
+    font-family:Georgia, 'Times New Roman', Times, serif
+}
+
+.news-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.news-card {
+    background: #497D74;
+    padding: 15px;
+    border-radius: 10px;
+    width: 30%;
+    box-shadow: 0px 2px 10px rgba(255, 255, 255, 0.1);
+    transition: transform 0.3s ease-in-out;
+}
+
+.news-card:hover {
+    transform: scale(1.05);
+}
+
+/* AI Insights */
+.ai-insights {
+    text-align: center;
+    padding: 20px;
+    background: #71BBB2;
+    margin-top: 20px;
+    font-family:Georgia, 'Times New Roman', Times, serif
+}
+.ai-insights h2,p{
+    color:black;
+
+}
+
+/* Footer */
+.footer{
+    width:100%;
+    text-align: center;
+    padding: 30px 0;
+    color: black;
+}
+
+.footer h4{
+    margin-bottom: 25px;
+    margin-top: 20px;
+    font-weight: 600;
+
+}
+.icons .fab{
+    color: #f44336;
+    margin: 0 13px;
+    cursor:pointer;
+    padding: 18px 0;
+}
+.fa{
+    color: #f44336;
+    margin: 3px;
+}
