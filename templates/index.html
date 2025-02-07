@@ -1,115 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial Insights Hub</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        /* General Styles */
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #EFE9D5;
-            color: #ffffff;
-            transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sentiment Analysis for Financial News</title>
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        /* Header */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            background-color: #27445D;
-            box-shadow: 0px 2px 10px rgba(255, 255, 255, 0.1);
-        }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: #fff;
+      overflow: hidden;
+    }
 
-        h1 {
-            margin: auto;
-            font-size: 24px;
-            text-align: center;
-            font-family: Georgia, 'Times New Roman', Times, serif;
-        }
+    /* Animated Background */
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
-        /* Dark Mode Toggle */
-        #darkModeToggle {
-            background: none;
-            border: none;
-            color: #ffffff;
-            font-size: 20px;
-            cursor: pointer;
-        }
+    /* Container */
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
 
-        /* Analyze Button */
-        .analyze-button {
-            display: block;
-            margin: 20px auto;
-            padding: 10px 20px;
-            font-size: 18px;
-            background-color: #497D74;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
-        }
+    /* Header */
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      animation: fadeIn 2s ease-in-out;
+    }
 
-        /* Stock Ticker */
-        .stock-ticker {
-            background: rgb(255, 237, 164);
-            color: #000;
-            padding: 10px;
-            font-weight: bold;
-        }
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 300;
+      margin-bottom: 40px;
+      animation: fadeIn 3s ease-in-out;
+    }
 
-        /* Market Overview */
-        .market-overview {
-            text-align: center;
-            padding: 20px;
-            color: #1a2d3e;
-            font-family: Georgia, 'Times New Roman', Times, serif;
-        }
+    /* Input Box */
+    .input-box {
+      width: 100%;
+      max-width: 600px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+      animation: slideUp 1.5s ease-in-out;
+    }
 
-        canvas {
-            max-width: 90%;
-            background: #fff;
-            padding: 10px;
-            border-radius: 10px;
-        }
-    </style>
+    .input-box textarea {
+      width: 100%;
+      height: 150px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.8);
+      color: #333;
+      resize: none;
+    }
+
+    .input-box button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background: #23a6d5;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    .input-box button:hover {
+      background: #1e87b0;
+    }
+
+    /* Result Box */
+    .result-box {
+      margin-top: 30px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+      animation: fadeIn 4s ease-in-out;
+    }
+
+    .result-box h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
+
+    .result-box p {
+      font-size: 1.2rem;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Financial Insights Hub</h1>
-        <button id="darkModeToggle"><i class="fas fa-moon"></i></button>
-    </header>
+  <div class="container">
+    <h1>Sentiment Analysis for Financial News</h1>
+    <h2>Analyze the sentiment of financial news in real-time</h2>
 
-    <div class="stock-ticker">
-        <marquee id="stockTicker">Loading latest stock sentiment...</marquee>
+    <!-- Input Box -->
+    <div class="input-box">
+      <textarea id="newsInput" placeholder="Paste financial news here..."></textarea>
+      <button onclick="analyzeSentiment()">Analyze Sentiment</button>
     </div>
 
-    <section class="market-overview">
-        <h2>Market Trends</h2>
-        <canvas id="marketChart"></canvas>
-    </section>
+    <!-- Result Box -->
+    <div class="result-box" id="resultBox" style="display: none;">
+      <h3>Analysis Result</h3>
+      <p id="resultText"></p>
+    </div>
+  </div>
 
-    <button id="analyzeButton" class="analyze-button">Analyze</button>
+  <script>
+    function analyzeSentiment() {
+      const newsInput = document.getElementById('newsInput').value;
+      const resultBox = document.getElementById('resultBox');
+      const resultText = document.getElementById('resultText');
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Dark Mode Toggle
-            const darkModeToggle = document.getElementById("darkModeToggle");
-            darkModeToggle.addEventListener("click", function () {
-                document.body.classList.toggle("light-mode");
-            });
-    
-            // Analyze Button Click Event
-            document.getElementById("analyzeButton").addEventListener("click", function () {
-                window.location.href = "/predict";
-            });
-        });
-    </script>
+      // Update URL to include /predict
+      window.history.pushState({}, '', '/predict');
+
+      // Simulate sentiment analysis (replace with actual API call)
+      const sentiment = Math.random() > 0.5 ? 'Positive' : 'Negative';
+      const confidence = (Math.random() * 100).toFixed(2);
+
+      resultText.innerHTML = `Sentiment: <strong>${sentiment}</strong><br>Confidence: ${confidence}%`;
+      resultBox.style.display = 'block';
+    }
+  </script>
 </body>
 </html>
