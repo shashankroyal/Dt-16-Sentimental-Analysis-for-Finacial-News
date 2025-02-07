@@ -1,209 +1,162 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial Insights Hub</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        /* General Styles */
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #EFE9D5;
-            color: #ffffff;
-            transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sentiment Analysis for Financial News</title>
+  <style>
+    /* General Reset */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        /* Header */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            background-color: #27445D;
-            box-shadow: 0px 2px 10px rgba(255, 255, 255, 0.1);
-        }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: #fff;
+      overflow: hidden;
+    }
 
-        h1 {
-            margin: auto;
-            font-size: 24px;
-            text-align: center;
-            font-family: Georgia, 'Times New Roman', Times, serif;
-        }
+    /* Animated Background */
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
 
-        /* Dark Mode Toggle */
-        #darkModeToggle {
-            background: none;
-            border: none;
-            color: #ffffff;
-            font-size: 20px;
-            cursor: pointer;
-        }
+    /* Container */
+    .container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
 
-        /* Stock Ticker */
-        .stock-ticker {
-            background: rgb(255, 237, 164);
-            color: #000;
-            padding: 10px;
-            font-weight: bold;
-        }
+    /* Header */
+    h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+      margin-bottom: 20px;
+      animation: fadeIn 2s ease-in-out;
+    }
 
-        /* Market Overview */
-        .market-overview {
-            text-align: center;
-            padding: 20px;
-            color: #1a2d3e;
-            font-family: Georgia, 'Times New Roman', Times, serif;
-        }
+    h2 {
+      font-size: 1.5rem;
+      font-weight: 300;
+      margin-bottom: 40px;
+      animation: fadeIn 3s ease-in-out;
+    }
 
-        canvas {
-            max-width: 90%;
-            background: #fff;
-            padding: 10px;
-            border-radius: 10px;
-        }
+    /* Input Box */
+    .input-box {
+      width: 100%;
+      max-width: 600px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+      animation: slideUp 1.5s ease-in-out;
+    }
 
-        /* News Section */
-        .news {
-            padding: 20px;
-            color: #1f3834;
-            font-family: Georgia, 'Times New Roman', Times, serif;
-        }
+    .input-box textarea {
+      width: 100%;
+      height: 150px;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1rem;
+      background: rgba(255, 255, 255, 0.8);
+      color: #333;
+      resize: none;
+    }
 
-        .news-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
+    .input-box button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      background: #23a6d5;
+      color: #fff;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
 
-        .news-card {
-            background: #497D74;
-            padding: 15px;
-            border-radius: 10px;
-            width: 30%;
-            box-shadow: 0px 2px 10px rgba(255, 255, 255, 0.1);
-            transition: transform 0.3s ease-in-out;
-        }
+    .input-box button:hover {
+      background: #1e87b0;
+    }
 
-        .news-card:hover {
-            transform: scale(1.05);
-        }
+    /* Result Box */
+    .result-box {
+      margin-top: 30px;
+      padding: 20px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      backdrop-filter: blur(10px);
+      animation: fadeIn 4s ease-in-out;
+    }
 
-        /* AI Insights */
-        .ai-insights {
-            text-align: center;
-            padding: 20px;
-            background: #71BBB2;
-            margin-top: 20px;
-            font-family: Georgia, 'Times New Roman', Times, serif;
-        }
+    .result-box h3 {
+      font-size: 1.5rem;
+      margin-bottom: 10px;
+    }
 
-        .ai-insights h2, p {
-            color: black;
-        }
+    .result-box p {
+      font-size: 1.2rem;
+    }
 
-        /* Footer */
-        .footer {
-            width: 100%;
-            text-align: center;
-            padding: 30px 0;
-            color: black;
-        }
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
 
-        .icons .fab {
-            color: #f44336;
-            margin: 0 13px;
-            cursor: pointer;
-            padding: 18px 0;
-        }
-    </style>
+    @keyframes slideUp {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <h1>Financial Insights Hub</h1>
-        <button id="darkModeToggle"><i class="fas fa-moon"></i></button>
-    </header>
+  <div class="container">
+    <h1>Sentiment Analysis for Financial News</h1>
+    <h2>Analyze the sentiment of financial news in real-time</h2>
 
-    <div class="stock-ticker">
-        <marquee id="stockTicker">Loading latest stock sentiment...</marquee>
+    <!-- Input Box -->
+    <div class="input-box">
+      <textarea id="newsInput" placeholder="Paste financial news here..."></textarea>
+      <button onclick="analyzeSentiment()">Analyze Sentiment</button>
     </div>
 
-    <section class="market-overview">
-        <h2>Market Trends</h2>
-        <canvas id="marketChart"></canvas>
-    </section>
+    <!-- Result Box -->
+    <div class="result-box" id="resultBox" style="display: none;">
+      <h3>Analysis Result</h3>
+      <p id="resultText"></p>
+    </div>
+  </div>
 
-    <section class="news">
-        <h2>Latest Financial News</h2>
-        <div id="newsContainer" class="news-container"></div>
-    </section>
+  <script>
+    function analyzeSentiment() {
+      const newsInput = document.getElementById('newsInput').value;
+      const resultBox = document.getElementById('resultBox');
+      const resultText = document.getElementById('resultText');
 
-    <section class="ai-insights">
-        <h2>AI-Powered Insights</h2>
-        <p id="aiInsight">Analyzing market data...</p>
-    </section>
+      // Update URL to include /predict
+      window.history.pushState({}, '', '/predict');
 
-    <section class="footer">
-        <h3>About us</h3>
-        <p>"Financial Insights Hub is your go-to platform for real-time financial analytics, AI-driven market insights, and sentiment analysis. 
-            We empower investors, traders, and financial analysts with cutting-edge technology to make informed decisions. Stay ahead of 
-            market trends with AI-powered predictions, interactive charts, and real-time news updates."
-        </p>
-        <div class="icons">
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="https://www.instagram.com/___s__p__reddy__07/"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-youtube"></i></a>
-        </div>
-    </section>
+      // Simulate sentiment analysis (replace with actual API call)
+      const sentiment = Math.random() > 0.5 ? 'Positive' : 'Negative';
+      const confidence = (Math.random() * 100).toFixed(2);
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Dark Mode Toggle
-            const darkModeToggle = document.getElementById("darkModeToggle");
-            darkModeToggle.addEventListener("click", function () {
-                document.body.classList.toggle("light-mode");
-            });
-    
-            // Fake stock sentiment data
-            const stockSentiment = [
-                "AAPL: +2.5% 🚀 | TSLA: -1.3% 🔻 | AMZN: +1.8% 📈 | BTC: +3.2% 🚀",
-                "GOOGL: +1.1% 📈 | META: -0.8% 🔻 | ETH: +4.1% 🚀 | NVDA: +2.3% 📈"
-            ];
-            let ticker = document.getElementById("stockTicker");
-            let index = 0;
-            setInterval(() => {
-                ticker.innerText = stockSentiment[index];
-                index = (index + 1) % stockSentiment.length;
-            }, 5000);
-    
-            // Sample News
-            const newsContainer = document.getElementById("newsContainer");
-            const sampleNews = [
-                { title: "Market hits all-time high", link: "#" },
-                { title: "Tech stocks see a major rally", link: "#" },
-                { title: "Crypto market surges 10% in a week", link: "#" }
-            ];
-            sampleNews.forEach(news => {
-                let newsCard = document.createElement("div");
-                newsCard.classList.add("news-card");
-                newsCard.innerHTML = `<a href="${news.link}" target="_blank">${news.title}</a>`;
-                newsContainer.appendChild(newsCard);
-            });
-    
-            // Chart.js Market Trends Visualization
-            const ctx = document.getElementById("marketChart").getContext("2d");
-            new Chart(ctx, {
-                type: "line",
-                data: {
-                    labels: ["Jan", "Feb", "Mar", "Apr", "May"],
-                    datasets: [{ label: "Stock Market Index", data: [3200, 3400, 3300, 3500, 3600], borderColor: "#ffcc00", borderWidth: 2 }]
-                },
-                options: { responsive: true }
-            });
-        });
-    </script>
+      resultText.innerHTML = `Sentiment: <strong>${sentiment}</strong><br>Confidence: ${confidence}%`;
+      resultBox.style.display = 'block';
+    }
+  </script>
 </body>
 </html>
