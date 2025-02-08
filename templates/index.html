@@ -1,162 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sentiment Analysis for Financial News</title>
-  <style>
-    /* General Reset */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
-      background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
-      color: #fff;
-      overflow: hidden;
-    }
-
-    /* Animated Background */
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    /* Container */
-    .container {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      text-align: center;
-    }
-
-    /* Header */
-    h1 {
-      font-size: 3.5rem;
-      font-weight: 700;
-      margin-bottom: 20px;
-      animation: fadeIn 2s ease-in-out;
-    }
-
-    h2 {
-      font-size: 1.5rem;
-      font-weight: 300;
-      margin-bottom: 40px;
-      animation: fadeIn 3s ease-in-out;
-    }
-
-    /* Input Box */
-    .input-box {
-      width: 100%;
-      max-width: 600px;
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      backdrop-filter: blur(10px);
-      animation: slideUp 1.5s ease-in-out;
-    }
-
-    .input-box textarea {
-      width: 100%;
-      height: 150px;
-      padding: 10px;
-      border: none;
-      border-radius: 5px;
-      font-size: 1rem;
-      background: rgba(255, 255, 255, 0.8);
-      color: #333;
-      resize: none;
-    }
-
-    .input-box button {
-      margin-top: 15px;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
-      background: #23a6d5;
-      color: #fff;
-      font-size: 1rem;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    .input-box button:hover {
-      background: #1e87b0;
-    }
-
-    /* Result Box */
-    .result-box {
-      margin-top: 30px;
-      padding: 20px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 10px;
-      backdrop-filter: blur(10px);
-      animation: fadeIn 4s ease-in-out;
-    }
-
-    .result-box h3 {
-      font-size: 1.5rem;
-      margin-bottom: 10px;
-    }
-
-    .result-box p {
-      font-size: 1.2rem;
-    }
-
-    /* Animations */
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    @keyframes slideUp {
-      from { transform: translateY(50px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis for Financial News</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            background: black;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.7);
+            animation: fadeIn 2s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px cyan;
+        }
+        .input-section {
+            margin-bottom: 20px;
+        }
+        input {
+            padding: 12px;
+            width: 80%;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-align: center;
+            font-size: 16px;
+            outline: none;
+        }
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        button {
+            padding: 12px;
+            margin-left: 10px;
+            border: none;
+            border-radius: 5px;
+            background: cyan;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease-in-out;
+        }
+        button:hover {
+            background: lime;
+            transform: scale(1.1);
+            box-shadow: 0 0 10px lime;
+        }
+        .output-section {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            text-shadow: 0 0 10px cyan;
+            opacity: 0;
+            animation: fadeInText 2s ease-in-out forwards;
+        }
+        @keyframes fadeInText {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Sentiment Analysis for Financial News</h1>
-    <h2>Analyze the sentiment of financial news in real-time</h2>
-
-    <!-- Input Box -->
-    <div class="input-box">
-      <textarea id="newsInput" placeholder="Paste financial news here..."></textarea>
-      <button onclick="analyzeSentiment()">Analyze Sentiment</button>
+    <div class="container">
+        <header>
+            <h1>Sentiment Analysis for Financial News</h1>
+        </header>
+        <main>
+            <form action="/predict" method="POST" class="input-section">
+                <input type="text" name="newsInput" id="newsInput" placeholder="Enter financial news headline...">
+                <button type="submit">Analyze</button>
+            </form>
+            <div class="output-section" id="result">Sentiment result will appear here...</div>
+        </main>
     </div>
-
-    <!-- Result Box -->
-    <div class="result-box" id="resultBox" style="display: none;">
-      <h3>Analysis Result</h3>
-      <p id="resultText"></p>
-    </div>
-  </div>
-
-  <script>
-    function analyzeSentiment() {
-      const newsInput = document.getElementById('newsInput').value;
-      const resultBox = document.getElementById('resultBox');
-      const resultText = document.getElementById('resultText');
-
-      // Update URL to include /predict
-      window.history.pushState({}, '', '/predict');
-
-      // Simulate sentiment analysis (replace with actual API call)
-      const sentiment = Math.random() > 0.5 ? 'Positive' : 'Negative';
-      const confidence = (Math.random() * 100).toFixed(2);
-
-      resultText.innerHTML = `Sentiment: <strong>${sentiment}</strong><br>Confidence: ${confidence}%`;
-      resultBox.style.display = 'block';
-    }
-  </script>
 </body>
 </html>
