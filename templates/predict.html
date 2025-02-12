@@ -1,192 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial Sentiment Predictor</title>
-    <style>
-        /* General Styles */
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #0a0a0a;
-            color: #ffffff;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sentiment Analysis</title>
+  <style>
+    /* General Body and Background Settings */
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #121212;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+    }
 
-        /* Background Animation */
-        .background {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: linear-gradient(135deg, #001f3f, #003366);
-            animation: gradientAnimation 10s infinite alternate;
-        }
+    /* Header Styling */
+    h1 {
+      font-size: 36px;
+      color: #f39c12;
+      margin-bottom: 20px;
+    }
 
-        @keyframes gradientAnimation {
-            0% {
-                background-position: 0% 50%;
-            }
-            100% {
-                background-position: 100% 50%;
-            }
-        }
+    /* Form Container Styling */
+    .form-container {
+      background-color: #1c1c1c;
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+      width: 100%;
+      max-width: 500px;
+      text-align: center;
+    }
 
-        /* Container Styles */
-        .container {
-            position: relative;
-            z-index: 1;
-            background-color: rgba(0, 0, 0, 0.8);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 0 30px rgba(0, 191, 255, 0.5);
-            width: 450px;
-            text-align: center;
-            margin: 10% auto;
-            animation: fadeIn 2s ease-in-out;
-        }
+    /* Input Field Styling */
+    input[type="text"] {
+      width: 100%;
+      padding: 15px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      margin-bottom: 20px;
+      background-color: #333;
+      color: #fff;
+    }
 
-        @keyframes fadeIn {
-            0% {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
+    /* Button Styling */
+    .btn {
+      background-color: #f39c12;
+      color: #fff;
+      font-size: 18px;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
 
-        h1 {
-            color: #00bfff;
-            margin-bottom: 20px;
-            font-size: 2.5rem;
-            animation: glow 2s infinite alternate;
-        }
+    /* Button Hover Effect */
+    .btn:hover {
+      background-color: #e67e22;
+    }
 
-        @keyframes glow {
-            0% {
-                text-shadow: 0 0 10px #00bfff, 0 0 20px #00bfff;
-            }
-            100% {
-                text-shadow: 0 0 20px #00bfff, 0 0 40px #00bfff;
-            }
-        }
-
-        /* Textarea Styles */
-        textarea {
-            width: 100%;
-            height: 150px;
-            padding: 15px;
-            border: 2px solid #00bfff;
-            border-radius: 10px;
-            background-color: rgba(38, 38, 38, 0.8);
-            color: #ffffff;
-            font-size: 16px;
-            resize: none;
-            margin-bottom: 20px;
-            transition: border-color 0.3s ease;
-        }
-
-        textarea:focus {
-            border-color: #009acd;
-            outline: none;
-        }
-
-        textarea::placeholder {
-            color: #888;
-        }
-
-        /* Button Styles */
-        button {
-            background-color: #00bfff;
-            color: #0a0a0a;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 10px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease, transform 0.3s ease;
-        }
-
-        button:hover {
-            background-color: #009acd;
-            transform: scale(1.05);
-        }
-
-        /* Result Styles */
-        .result {
-            margin-top: 20px;
-            font-size: 18px;
-            color: #00bfff;
-            animation: fadeIn 1s ease-in-out;
-        }
-
-        /* Background Images */
-        .background-images {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.3;
-            animation: slide 20s infinite linear;
-        }
-
-        .background-images img {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        @keyframes slide {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%);
-            }
-        }
-    </style>
+    /* Sentiment Output Styling */
+    .sentiment-result {
+      margin-top: 20px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-    <!-- Background Animation -->
-    <div class="background"></div>
-
-    <!-- Background Images -->
-    <div class="background-images">
-        <img src="https://source.unsplash.com/1600x900/?finance,stock" alt="Finance Image 1">
-        <img src="https://source.unsplash.com/1600x900/?trading,market" alt="Finance Image 2">
-        <img src="https://source.unsplash.com/1600x900/?economy,money" alt="Finance Image 3">
+  <h1>Sentiment Analysis</h1>
+  <div class="form-container">
+    <form action="/predict" method="POST">
+      <label for="message" style="font-size: 18px; margin-bottom: 10px; display: block;">Enter your message:</label>
+      <input type="text" id="message" name="message" placeholder="Type your message here..." required>
+      <br>
+      <button type="submit" class="btn">Know Sentiment</button>
+    </form>
     </div>
+  </div>
 
-    <!-- Main Container -->
-    <div class="container">
-        <h1>Financial Sentiment Predictor</h1>
-        <form id="sentimentForm">
-            <textarea id="message" name="message" placeholder="Enter your financial news or message here..." required></textarea>
-            <button type="submit">Predict Sentiment</button>
-        </form>
-        <div class="result" id="result"></div>
-    </div>
-
-    <script>
-        document.getElementById('sentimentForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const message = document.getElementById('message').value;
-            const resultDiv = document.getElementById('result');
-
-            // Simulate a sentiment prediction (replace with actual API call)
-            const sentiments = ["Positive", "Neutral", "Negative"];
-            const randomSentiment = sentiments[Math.floor(Math.random() * sentiments.length)];
-            resultDiv.textContent = `Sentiment: ${randomSentiment}`;
-        });
-    </script>
 </body>
 </html>
