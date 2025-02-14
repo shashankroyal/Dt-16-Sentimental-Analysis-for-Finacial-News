@@ -1,4 +1,4 @@
 guniorn
 flask
-nltk
 sikit-learn
+nltk
