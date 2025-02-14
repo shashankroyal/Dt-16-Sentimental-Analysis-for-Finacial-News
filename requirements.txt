@@ -1,4 +1,4 @@
-nltk
-flask
 gunicorn
-numpy
+flask
+scikit-learn
+nltk
