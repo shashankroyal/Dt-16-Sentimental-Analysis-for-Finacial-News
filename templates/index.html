@@ -3,113 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Financial Insights Hub</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <script defer src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Sentiment Analysis for Financial News</title>
     <style>
-        /* General Styles */
-        body {
-            font-family: 'Arial', sans-serif;
+        * {
             margin: 0;
             padding: 0;
-            background-color: #EFE9D5;
-            color: #ffffff;
-            transition: background 0.3s ease-in-out, color 0.3s ease-in-out;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
         }
-
-        /* Header */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            background-color: #27445D;
-            box-shadow: 0px 2px 10px rgba(255, 255, 255, 0.1);
-        }
-
-        h1 {
-            margin: auto;
-            font-size: 24px;
-            text-align: center;
-            font-family: Georgia, 'Times New Roman', Times, serif;
-        }
-
-        /* Dark Mode Toggle */
-        #darkModeToggle {
-            background: none;
-            border: none;
-            color: #ffffff;
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        /* Analyze Button */
-        .analyze-button {
-            display: block;
-            margin: 20px auto;
-            padding: 10px 20px;
-            font-size: 18px;
-            background-color: #497D74;
+        body {
+            background: black;
             color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
         }
-
-        /* Stock Ticker */
-        .stock-ticker {
-            background: rgb(255, 237, 164);
-            color: #000;
-            padding: 10px;
-            font-weight: bold;
-        }
-
-        /* Market Overview */
-        .market-overview {
+        .container {
             text-align: center;
-            padding: 20px;
-            color: #1a2d3e;
-            font-family: Georgia, 'Times New Roman', Times, serif;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 0 15px rgba(0, 255, 255, 0.7);
+            animation: fadeIn 2s ease-in-out;
         }
-
-        canvas {
-            max-width: 90%;
-            background: #fff;
-            padding: 10px;
-            border-radius: 10px;
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px cyan;
+        }
+        .input-section {
+            margin-bottom: 20px;
+        }
+        input {
+            padding: 12px;
+            width: 80%;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-align: center;
+            font-size: 16px;
+            outline: none;
+        }
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        button {
+            padding: 12px;
+            margin-left: 10px;
+            border: none;
+            border-radius: 5px;
+            background: cyan;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease-in-out;
+        }
+        button:hover {
+            background: lime;
+            transform: scale(1.1);
+            box-shadow: 0 0 10px lime;
+        }
+        .output-section {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            text-shadow: 0 0 10px cyan;
+            opacity: 0;
+            animation: fadeInText 2s ease-in-out forwards;
+        }
+        @keyframes fadeInText {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>Financial Insights Hub</h1>
-        <button id="darkModeToggle"><i class="fas fa-moon"></i></button>
-    </header>
-
-    <div class="stock-ticker">
-        <marquee id="stockTicker">Loading latest stock sentiment...</marquee>
+    <div class="container">
+        <header>
+            <h1>Sentiment Analysis for Financial News</h1>
+        </header>
+        <main>
+            <form action="/predict" method="GET" >
+                <input type="text" name="newsInput" id="newsInput" placeholder="Enter financial news headline...">
+                <button type="submit">Analyze</button>
+            </form>
+            <div class="output-section" id="result">Sentiment result will appear here...</div>
+        </main>
     </div>
-
-    <section class="market-overview">
-        <h2>Market Trends</h2>
-        <canvas id="marketChart"></canvas>
-    </section>
-
-    <button id="analyzeButton" class="analyze-button">Analyze</button>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Dark Mode Toggle
-            const darkModeToggle = document.getElementById("darkModeToggle");
-            darkModeToggle.addEventListener("click", function () {
-                document.body.classList.toggle("light-mode");
-            });
-    
-            // Analyze Button Click Event
-            document.getElementById("analyzeButton").addEventListener("click", function () {
-                window.location.href = "/predict";
-            });
-        });
-    </script>
 </body>
 </html>
