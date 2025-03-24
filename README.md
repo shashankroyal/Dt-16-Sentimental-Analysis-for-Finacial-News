@@ -1,4 +1,6 @@
 **DT-16 Sentiment Analysis for Financial News**
+
+
 This repository contains a Sentiment Analysis project for financial news headlines using Flask, Scikit-learn, and NLTK. The application processes news headlines, analyzes their sentiment, and classifies them as positive, negative, or neutral.
 
 Features
@@ -27,19 +29,19 @@ Flask-based API for sentiment prediction.
 
 **Installation**
 1. Clone the Repository
-   <pre>``` git clone https://github.com/your-username/DT-16-Sentimental-Analysis-for-Financial-News.git
-cd DT-16-Sentimental-Analysis-for-Financial-News <pre>  ``` </pre>
+   <pre> git clone https://github.com/your-username/DT-16-Sentimental-Analysis-for-Financial-News.git
+         cd DT-16-Sentimental-Analysis-for-Financial-News <pre>   </pre>
 
 
 2. Create a Virtual Environment (Optional)
-  <pre>``` python -m venv venv
-source venv/bin/activate  # On Windows use: venv\Scripts\activate ```</pre>
+  <pre> python -m venv venv
+      source venv/bin/activate  # On Windows use: venv\Scripts\activate </pre>
 
 3. Install Dependencies
 
-  <pre>``` pip install -r requirements.txt </pre>```
+  <pre> pip install -r requirements.txt </pre>
 **Running the Application**
-<pre>```  python app.py ```</pre>
+<pre>  python app.py </pre>
   
 The app will be accessible at: http://127.0.0.1:5050/
 
