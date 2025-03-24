@@ -10,6 +10,7 @@ Data preprocessing using NLTK (tokenization, stopword removal, stemming).
 
 Flask-based API for sentiment prediction.
 
+<pre> ```python def hello(): print("Hello, World!") ``` </pre>
 **Project Structure**
 📁 DT-16-Sentimental-Analysis-for-Financial-News
 │── app.py                 # Flask application
