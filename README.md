@@ -10,9 +10,9 @@ Data preprocessing using NLTK (tokenization, stopword removal, stemming).
 
 Flask-based API for sentiment prediction.
 
-<pre> ```python def hello(): print("Hello, World!") ``` </pre>
+
 **Project Structure**
-📁 DT-16-Sentimental-Analysis-for-Financial-News
+<pre> ```📁 DT-16-Sentimental-Analysis-for-Financial-News
 │── app.py                 # Flask application
 │── test.py                # Text preprocessing (Tokenization, Stopwords removal, Stemming)
 │── requirements.txt       # Required dependencies
@@ -22,27 +22,28 @@ Flask-based API for sentiment prediction.
 │── vectorizer.pickle      # Vectorizer for text transformation
 │── all-data.csv           # Dataset used for training
 │── nlp.ipynb              # Jupyter notebook for NLP processing
-│── README.md              # Project documentation
+│── README.md              # Project documentation ``` </pre>
 
 
-Installation
+**Installation**
 1. Clone the Repository
-   git clone https://github.com/your-username/DT-16-Sentimental-Analysis-for-Financial-News.git
-cd DT-16-Sentimental-Analysis-for-Financial-News
+   <pre>``` git clone https://github.com/your-username/DT-16-Sentimental-Analysis-for-Financial-News.git
+cd DT-16-Sentimental-Analysis-for-Financial-News <pre>  ``` </pre>
 
 
 2. Create a Virtual Environment (Optional)
-   python -m venv venv
-source venv/bin/activate  # On Windows use: venv\Scripts\activate
+  <pre>``` python -m venv venv
+source venv/bin/activate  # On Windows use: venv\Scripts\activate ```</pre>
 
 3. Install Dependencies
 
-   pip install -r requirements.txt
+  <pre>``` pip install -r requirements.txt </pre>```
 **Running the Application**
-  python app.py
+<pre>```  python app.py ```</pre>
+  
 The app will be accessible at: http://127.0.0.1:5050/
 
-How It Works
+**How It Works**
 Open the web application.
 
 Enter a financial news headline.
